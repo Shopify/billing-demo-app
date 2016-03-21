@@ -1,0 +1,109 @@
+<script type="text/javascript">
+  ShopifyApp.ready(function(){
+    ShopifyApp.Bar.initialize({
+      title: "Recurring Charge",
+      icon: "<%= asset_path('favicon.png') %>"
+    });
+  });
+</script>
+
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
+<% if @recurring_application_charge.present? && !@recurring_application_charge.try(:capped_amount) %>
+  <div class="section">
+    <div class= "col-md-3">
+      <h4>
+        Recurring Charge
+      </h4>
+
+      <p>
+        Here you can see the terms of the recurring charge.
+      </p>
+    </div>
+
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Trial Days</th>
+                <th>Billing On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <%= @recurring_application_charge.name %>
+                </td>
+                <td>
+                  $<%= @recurring_application_charge.price %>
+                </td>
+                <td>
+                  <%= @recurring_application_charge.trial_days %>
+                </td>
+                <td>
+                  <%= @recurring_application_charge.billing_on %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="section">
+    <div class= "col-md-3">
+    </div>
+    <div class="col-md-9">
+      <p>
+        <%= link_to 'Cancel charge', recurring_application_charge_path, method: :delete, class: "btn btn-danger" %>
+      </p>
+    </div>
+  </div>
+
+<% else %>
+  <div class="section">
+    <div class= "col-md-3">
+      <h4>
+        Recurring Application Charge
+      </h4>
+      <p>
+        Create a new recurring application charge
+      </p>
+    </div>
+
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <%= form_tag(recurring_application_charge_path, method: 'post', class: "form") do %>
+            <div class="form-group">
+              <%= label_tag 'text', 'Name' %>
+              <%= text_field_tag 'recurring_application_charge[name]', nil, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= label_tag 'number', 'Price' %>
+              <%= number_field_tag 'recurring_application_charge[price]', nil, class: 'form-control', step: 0.01 %>
+            </div>
+
+            <div class="form-group">
+              <%= label_tag 'number', 'Trial Days' %>
+              <%= number_field_tag 'recurring_application_charge[trial_days]', nil, class: 'form-control' %>
+            </div>
+
+            <%= submit_tag "Create Charge", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

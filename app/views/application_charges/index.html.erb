@@ -1,0 +1,83 @@
+<script type="text/javascript">
+  ShopifyApp.ready(function(){
+    ShopifyApp.Bar.initialize({
+      title: "One-time Charge",
+      icon: "<%= asset_path('favicon.png') %>"
+    });
+  });
+</script>
+
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
+<div class="section">
+  <div class= "section_left col-md-3">
+    <h4>
+      One-time Charge
+    </h4>
+    <p>
+      Create a new one-time charge
+    </p>
+  </div>
+
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="section_right">
+
+          <%= form_tag(application_charges_path, method: 'post', class: "form") do %>
+            <div class="form-group">
+              <%= label_tag 'text', 'Name' %>
+              <%= text_field_tag 'application_charge[name]', nil, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= label_tag 'number', 'Price' %>
+              <%= number_field_tag 'application_charge[price]', nil, class: 'form-control', step: 0.01 %>
+            </div>
+
+            <%= submit_tag "Create Charge", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <% if @application_charges.any? %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @application_charges.each do |charge| %>
+                <tr>
+                  <td>
+                    <%= charge.name %>
+                  </td>
+                  <td>
+                    $<%= charge.price %>
+                  </td>
+                  <td>
+                    <% if charge.status == 'accepted' %>
+                      <%= link_to 'Activate charge', activate_application_charge_path(id: charge.id), method: :post %>
+                    <% else %>
+                      <span class="badge">
+                        <%= charge.status.capitalize %>
+                      </span>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

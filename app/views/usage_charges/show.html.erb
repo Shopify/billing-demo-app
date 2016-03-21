@@ -1,0 +1,224 @@
+<script type="text/javascript">
+  ShopifyApp.ready(function(){
+    ShopifyApp.Bar.initialize({
+      title: "Usage Charge",
+      icon: "<%= asset_path('favicon.png') %>"
+    });
+  });
+</script>
+
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
+<% if @recurring_application_charge.present? && @recurring_application_charge.try(:capped_amount) %>
+
+<div class="section">
+  <div class= "col-md-3">
+    <h4>
+      Recurring charge
+    </h4>
+
+    <p>
+      Here you can see the terms of the recurring charge and the remaining balance.
+    </p>
+  </div>
+
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+           <div class="col-md-6">Total Usage Charges</div>
+           <div class="col-md-6"><span class="pull-right">
+            $<%= @recurring_application_charge.balance_used %> /
+            $<%= @recurring_application_charge.capped_amount.to_f %>
+           </span></div>
+        </div>
+        <div class="progress progress-usage" define="{ percentage: <%= balance_used_percentage(@recurring_application_charge) %> }">
+          <div class="progress-bar" role="progressbar" aria-valuenow="<%= balance_used_percentage(@recurring_application_charge) %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= balance_used_percentage(@recurring_application_charge) %>%" bind-class="{ 'progress-bar-warning': (percentage > 60 && percentage <= 80), 'progress-bar-danger': percentage  > 80  }">
+          </div>
+        </div>
+
+        <div define="{ increaseCap: false, showLink: <%= show_balance_warning?(@recurring_application_charge) %> }">
+          <%= form_tag(customize_recurring_application_charge_path, method: 'post', class: "form-inline", "bind-show" => "increaseCap") do %>
+            <div class="form-group">
+              <%= label_tag 'number', 'New capped amount' %>
+              <%= number_field_tag 'recurring_application_charge[capped_amount]', @recurring_application_charge.capped_amount.to_f * 2, class: 'form-control', step: 0.01 %>
+            </div>
+
+            <%= submit_tag "Update Capped Amount", class: "btn btn-primary" %>
+          <% end %>
+
+          <p bind-show="!increaseCap && showLink">
+            You are reaching the maximum amount of usage fees this month.
+            <a bind-event-click="increaseCap = true">Increase capped amount</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Capped Amount</th>
+              <th>Balance Remaining</th>
+              <th>Billing On</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <%= @recurring_application_charge.name %>
+              </td>
+              <td>
+                $<%= @recurring_application_charge.price %>
+              </td>
+              <td>
+                $<%= @recurring_application_charge.capped_amount.to_f %>
+              </td>
+              <td>
+                $<%= @recurring_application_charge.balance_remaining %>
+              </td>
+              <td>
+                <%= @recurring_application_charge.billing_on %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="section">
+  <div class= "col-md-3">
+    <h4>
+      Usage Charge
+    </h4>
+    <p>
+      Create new usage charges
+    </p>
+  </div>
+
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <%= form_tag(usage_charge_path, method: 'post', class: "form-inline") do %>
+
+        <div class="form-group">
+          <%= label_tag 'number', 'Price' %>
+          <%= number_field_tag 'usage_charge[price]', nil, class: 'form-control', step: 0.01 %>
+        </div>
+
+        <div class="form-group">
+          <%= label_tag 'text', 'Description' %>
+          <%= text_field_tag 'usage_charge[description]', nil, class: 'form-control' %>
+        </div>
+
+          <%= submit_tag "Create Charge", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+
+    <% if @usage_charges.try!(:any?) %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Billing On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @usage_charges.to_a.reverse.each do |charge| %>
+                <tr>
+                  <td>
+                    <%= charge.description %>
+                  </td>
+                  <td>
+                    $<%= charge.price %>
+                  </td>
+                  <td>
+                    <%= charge.billing_on %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<hr />
+
+<div class="section">
+  <div class= "col-md-3">
+  </div>
+  <div class="col-md-9">
+    <p>
+      <%= link_to 'Cancel charge', recurring_application_charge_path, method: :delete, class: "btn btn-danger" %>
+    </p>
+  </div>
+</div>
+
+
+<% else %>
+
+<div class="section">
+  <div class= "col-md-3">
+    <h4>
+      Recurring charge
+    </h4>
+
+    <p>
+      Create a new recurring charge with a capped amount.
+    </p>
+  </div>
+
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div bind-show="!showCreateForm">
+          <%= form_tag(recurring_application_charge_path, method: 'post', class: "form") do %>
+            <div class="form-group">
+              <%= label_tag 'text', 'Name' %>
+              <%= text_field_tag 'recurring_application_charge[name]', nil, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= label_tag 'number', 'Price' %>
+              <%= number_field_tag 'recurring_application_charge[price]', nil, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= label_tag 'number', 'Capped Amount'%>
+              <%= number_field_tag 'recurring_application_charge[capped_amount]', nil, class: 'form-control', step: 0.01%>
+            </div>
+
+            <div class="form-group">
+              <%= label_tag 'text', 'Terms' %>
+              <%= text_field_tag 'recurring_application_charge[terms]', nil, class: 'form-control' %>
+            </div>
+
+            <%= submit_tag "Create Charge", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% end %>

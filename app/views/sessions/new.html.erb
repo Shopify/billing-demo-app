@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Install Page</title>
+  <%= stylesheet_link_tag "new" %>
+</head>
+<body class="background">
+
+<div class="container theme-showcase">
+
+  <div class="login">
+    <h1><strong>Billing Test Application</strong></h1>
+
+    <form class="form-inline" method="GET" action="login">
+      <div class="form-group">
+        <input class="form-control" type="text" name="shop" placeholder="shop.myshopify.com"/>
+      </div>
+      <button class="btn btn-default" type='submit'>Install</button>
+    </form>
+  </div>
+
+  <div class="logo">
+    <%= image_tag("shopify_logo.png") %>
+  </div>
+
+</div>
+
+</body>
+
+
+</html>

@@ -1,0 +1,59 @@
+body {
+  background-color: #EBEEF0;
+  font-family: Helvetica;
+}
+
+.background {
+  background-color: #2B3335;
+}
+
+.login {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  h1 {
+    color: white;
+    font-size: 400%;
+    padding-bottom: 15px;
+  }
+  button {
+    border-color: #96BE4F;
+    background-color: #96BE4F;
+    color: white;
+  }
+}
+
+.logo {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  img {
+    height: 100px;
+    position: relative;
+  }
+}
+
+hr {
+    height: 1px;
+    background-color:#D3DBE2;
+    width: 100%;
+}
+
+.section {
+  padding: 20px;
+  .section_right {
+    padding: 5px;
+  }
+}
+
+.form-inline > * {
+   margin:0px 7px;
+}
+
+.footer {
+  text-align: right;
+  margin: 30px;
+}

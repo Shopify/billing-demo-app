@@ -15,7 +15,7 @@ class RecurringApplicationChargesController < AuthenticatedController
     if @recurring_application_charge.save
       fullpage_redirect_to @recurring_application_charge.confirmation_url
     else
-      flash[:danger] = recurring_application_charge.errors.full_messages.first.to_s.capitalize
+      flash[:danger] = @recurring_application_charge.errors.full_messages.first.to_s.capitalize
       redirect_to_correct_path(@recurring_application_charge)
     end
   end
@@ -27,7 +27,10 @@ class RecurringApplicationChargesController < AuthenticatedController
 
   def callback
     @recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.find(params[:charge_id])
-    @recurring_application_charge.activate
+
+    if @recurring_application_charge.status == 'accepted'
+      @recurring_application_charge.activate
+    end
 
     flash[:success] = "Recurring application charge was created successfully"
     redirect_to_correct_path(@recurring_application_charge)
@@ -36,7 +39,7 @@ class RecurringApplicationChargesController < AuthenticatedController
   def destroy
     @recurring_application_charge.cancel
 
-    flash[:success] = "Recurring application charge was canceled successfully"
+    flash[:success] = "Recurring application charge was cancelled successfully"
 
     redirect_to_correct_path(@recurring_application_charge)
   end

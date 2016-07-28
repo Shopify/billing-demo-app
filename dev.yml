@@ -1,0 +1,52 @@
+---
+name: billing-demo-app
+up:
+- homebrew:
+  - openssl
+  - shopify/shopify/mysql-client:
+      or:
+      - mysql
+      conflicts:
+      - mysql-connector-c
+  - phantomjs
+- ruby: 2.3.1
+- custom:
+    name: copy config/keys.yml
+    met?: test -f config/keys.yml
+    meet: cp config/keys.sample.yml config/keys.yml
+- bundler
+- railgun
+- database:
+    bootstrap: bin/rake db:setup ; bin/rake db:test:prepare
+    migrate: bin/rake db:migrate db:test:prepare
+    host: billing-demo-app.railgun
+    user: root
+    password: ''
+    database: billing-demo-app_development
+commands:
+  console:
+    desc: start a rails console
+    run: bin/rails console
+  server:
+    desc: start a rails server
+    run: bin/rails server -b 192.168.64.1 -p 40017
+  test:
+    syntax:
+      argument: file
+      optional: args...
+    desc: run tests
+    run: bin/rake test
+railgun:
+  image: dev:railgun-common-services-0.2.x
+  services:
+    mysql: 3306
+    nginx: 80
+  ip_address: 192.168.64.131
+  memory: 2G
+  cores: 2
+  disk: 2G
+  proxy:
+    billing-demo-app.myshopify.io: 40017
+open:
+  My Application: https://billing-demo-app.myshopify.io
+  billing-demo-app: https://billing-demo-app.myshopify.io

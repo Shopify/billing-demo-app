@@ -50,3 +50,7 @@ railgun:
 open:
   My Application: https://billing-demo-app.myshopify.io
   billing-demo-app: https://billing-demo-app.myshopify.io
+
+packages:
+  - git@github.com:Shopify/dev-shopify.git
+

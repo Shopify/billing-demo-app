@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.6'
+ruby '2.3.1'
 
 gem 'rails', '4.2.5.2'
 gem 'shopify_app', '~> 6.2.0'
@@ -18,6 +18,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'thin'
+gem 'newrelic_rpm'
 gem 'nokogiri', '~> 1.6', '>= 1.6.8'
 
 group :production do

@@ -22,7 +22,7 @@ up:
     host: billing-demo-app.railgun
     user: root
     password: ''
-    database: billing-demo-app_development
+    database: db/development.sqlite3
 commands:
   console:
     desc: start a rails console

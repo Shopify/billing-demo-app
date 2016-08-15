@@ -27,12 +27,10 @@ class RecurringApplicationChargesController < AuthenticatedController
 
   def callback
     @recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.find(params[:charge_id])
-
     if @recurring_application_charge.status == 'accepted'
       @recurring_application_charge.activate
     end
 
-    flash[:success] = "Recurring application charge was created successfully"
     redirect_to_correct_path(@recurring_application_charge)
   end
 

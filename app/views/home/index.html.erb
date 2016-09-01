@@ -1,11 +1,13 @@
-<script type="text/javascript">
-  ShopifyApp.ready(function(){
-    ShopifyApp.Bar.initialize({
-      title: "Charge your merchants",
-      icon: "<%= asset_path('favicon.png') %>"
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    ShopifyApp.ready(function(){
+      ShopifyApp.Bar.initialize({
+        title: "Home",
+        icon: "<%= asset_path('favicon.ico') %>"
+      });
     });
-  });
-</script>
+  </script>
+<% end %>
 
 <div class="section">
   <div class="col-md-12">

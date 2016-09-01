@@ -1,0 +1,85 @@
+<script type="text/javascript">
+  ShopifyApp.ready(function(){
+    ShopifyApp.Bar.initialize({
+      title: "Application Credit",
+      icon: "<%= asset_path('favicon.png') %>"
+    });
+  });
+</script>
+
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
+<div class="section">
+  <div class= "col-md-3">
+    <h4>
+      Application Credit
+    </h4>
+    <p>
+      Create a new application credit
+    </p>
+  </div>
+
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= form_tag(application_credit_path, method: 'post', class: "form") do %>
+          <div class="form-group">
+            <%= label_tag 'text', 'Description' %>
+            <%= text_field_tag 'application_credit[description]', nil, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag 'number', 'Amount' %>
+            <%= number_field_tag 'application_credit[amount]', nil, class: 'form-control', step: 0.01 %>
+          </div>
+
+          <%= submit_tag "Issue Credit", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @application_credits.try!(:any?) %>
+  <div class="section">
+    <div class= "col-md-3">
+      <h4>
+        Issued Credits
+      </h4>
+
+      <p>
+        Here you can see the description and amount
+      </p>
+    </div>
+
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @application_credits.each do |application_credit| %>
+                <tr>
+                  <td>
+                    <%= application_credit.description %>
+                  </td>
+                  <td>
+                    $<%= application_credit.amount %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -24,4 +24,6 @@ Rails.application.routes.draw do
   end
 
   resource :usage_charge, only: [:show, :create]
+
+  resource :application_credit, only: [:show, :create, :index]
 end

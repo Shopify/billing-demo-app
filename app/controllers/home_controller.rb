@@ -1,2 +1,2 @@
-class HomeController < AuthenticatedController
+class HomeController < ShopifyApp::AuthenticatedController
 end

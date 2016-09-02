@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  mount ShopifyApp::Engine, at: '/'
   controller :sessions do
     get 'login' => :new, :as => :login
     post 'login' => :create, :as => :authenticate
@@ -23,4 +24,6 @@ Rails.application.routes.draw do
   end
 
   resource :usage_charge, only: [:show, :create]
+
+  resource :application_credit, only: [:show, :create, :index]
 end

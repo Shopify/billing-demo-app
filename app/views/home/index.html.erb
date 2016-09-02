@@ -1,11 +1,13 @@
-<script type="text/javascript">
-  ShopifyApp.ready(function(){
-    ShopifyApp.Bar.initialize({
-      title: "Charge your merchants",
-      icon: "<%= asset_path('favicon.png') %>"
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    ShopifyApp.ready(function(){
+      ShopifyApp.Bar.initialize({
+        title: "Home",
+        icon: "<%= asset_path('favicon.ico') %>"
+      });
     });
-  });
-</script>
+  </script>
+<% end %>
 
 <div class="section">
   <div class="col-md-12">
@@ -27,6 +29,13 @@
       <div class="panel-body text-center">
         <h4>Usage charges</h4>
         <%= link_to 'Charge using usage charges', usage_charge_path, class: 'btn btn-large' %>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body text-center">
+        <h4>Application credits</h4>
+        <%= link_to 'Issue application credits', application_credit_path, class: 'btn btn-large' %>
       </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails', '4.2.5.2'
-gem 'shopify_app', '~> 6.2.0'
-gem 'shopify_api', github: 'Shopify/shopify_api', ref: 'de89c06faa9a6e4a23c0ca91e4081adb5d33c65f'
+gem 'rails', '4.2.6'
+gem 'shopify_app', '~> 7.2.0'
+gem 'shopify_api', github: 'Shopify/shopify_api', ref: 'd097cbf8ba796c1c4de0d56446eb6dcc81acb70d'
 gem 'omniauth-shopify-oauth2', '1.1.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'

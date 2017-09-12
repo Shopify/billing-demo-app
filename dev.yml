@@ -36,17 +36,6 @@ commands:
       optional: args...
     desc: run tests
     run: bin/rake test
-railgun:
-  image: dev:railgun-common-services-0.2.x
-  services:
-    mysql: 3306
-    nginx: 80
-  ip_address: 192.168.64.131
-  memory: 2G
-  cores: 2
-  disk: 2G
-  proxy:
-    billing-demo-app.myshopify.io: 40017
 open:
   My Application: https://billing-demo-app.myshopify.io
   billing-demo-app: https://billing-demo-app.myshopify.io

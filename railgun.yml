@@ -1,0 +1,18 @@
+# https://dev-accel.shopify.io/dev/railgun/Railgun-Config
+name: billing-demo-app
+
+vm:
+  image:      /opt/dev/misc/railgun-images/default
+  ip_address: 192.168.64.131
+  memory:     2G
+  cores:      2
+
+volumes:
+  root: 2G
+
+services:
+  - mysql
+  - nginx
+
+hostnames:
+  - billing-demo-app.myshopify.io: { proxy_to_host_port: 40017 }

@@ -1,5 +1,8 @@
 ---
 name: billing-demo-app
+
+type: rails
+
 up:
 - homebrew:
   - openssl
@@ -23,13 +26,14 @@ up:
     user: root
     password: ''
     database: db/development.sqlite3
+
+server:
+  port: 40017
+
 commands:
   console:
     desc: start a rails console
     run: bin/rails console
-  server:
-    desc: start a rails server
-    run: bin/rails server -b 192.168.64.1 -p 40017
   test:
     syntax:
       argument: file

@@ -1,17 +1,26 @@
-production:
-  adapter: mysql2
-  pool: 5
-  timeout: 5000
-  encoding: utf8
+default: &default
+ adapter: mysql2
+ pool: 5
+ timeout: 5000
+ encoding: utf8
 
 development:
-  adapter: sqlite3
-  pool: 5
-  timeout: 5000
-  database: db/development.sqlite3
+ <<: *default
+ database: billing-demo-app_development
+ host: billing-demo-app.railgun
+ strict: false
+ port: 3306
+ username: root
+ password:
 
 test:
-  adapter: sqlite3
-  pool: 5
-  timeout: 5000
-  database: db/test.sqlite3
+ <<: *default
+ database: billing-demo-app_test
+ host: billing-demo-app.railgun
+ strict: false
+ port: 3306
+ username: root
+ password:
+
+production:
+ <<: *default

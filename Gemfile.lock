@@ -103,15 +103,15 @@ GEM
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     mini_mime (1.0.0)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minitest (5.10.3)
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mysql2 (0.3.21)
     newrelic_rpm (3.16.2.321)
-    nokogiri (1.8.1)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.10.10)
+      mini_portile2 (~> 2.4.0)
     oauth2 (1.2.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -229,7 +229,7 @@ DEPENDENCIES
   less-rails
   mysql2 (~> 0.3.20)
   newrelic_rpm
-  nokogiri (~> 1.6, >= 1.6.8)
+  nokogiri (~> 1.10)
   omniauth-shopify-oauth2 (= 1.1.11)
   rails (= 4.2.7)
   rails_12factor

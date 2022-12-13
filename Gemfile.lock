@@ -63,7 +63,7 @@ GEM
     coffee-script-source (1.10.0)
     commonjs (0.2.7)
     concurrent-ruby (1.0.5)
-    crass (1.0.3)
+    crass (1.0.6)
     daemons (1.2.4)
     debug_inspector (0.0.2)
     dotenv (2.1.1)
@@ -97,7 +97,7 @@ GEM
       sprockets (> 2, < 4)
       tilt
     libv8 (3.16.14.15)
-    loofah (2.1.1)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.0)

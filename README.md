@@ -1,5 +1,7 @@
 # Billing Test App
 
+THIS IS ALL FAKE!
+
 This is a demo app that showcases [Shopify's Billing API](https://docs.shopify.com/api/guides/charging-for-your-app). It's meant to be used by Shopify partners and developers to learn how to interact with the Billing API, and to discover new billing features.
 
 Here's what you can do in this demo:
